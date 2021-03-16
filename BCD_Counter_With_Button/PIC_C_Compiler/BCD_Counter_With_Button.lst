@@ -1,0 +1,164 @@
+CCS PCM C Compiler, Version 5.007, 61971               16-Mar-21 23:14
+
+               Filename:   C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\BCD_Counter_With_Button\PIC_C_Compiler\BCD_Counter_With_Button.lst
+
+               ROM used:   77 words (1%)
+                           Largest free fragment is 2048
+               RAM used:   6 (2%) at main() level
+                           7 (2%) worst case
+               Stack used: 0 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   01A
+0003:  NOP
+.................... /****************************************************************************** 
+.................... *Project Name: BCD(Binary Coded Decimal) Counter With Button 
+.................... *Engineer: Canberk SAHIN 
+.................... *Project Microcontroller: PIC16F877 
+.................... *Version: V1 
+.................... *Create Date: 14.03.2021 
+.................... *Update Date: 14.03.2021 
+.................... *University: Bursa Technical University 
+.................... *Revision: -  
+.................... ******************************************************************************/ 
+.................... #include <BCD_Counter_With_Button.h> 
+.................... #include <16F877.h> 
+.................... //////// Standard Header file for the PIC16F877 device //////////////// 
+.................... #device PIC16F877 
+....................  
+.................... #list 
+....................  
+.................... #device ADC=16 
+....................  
+.................... #FUSES NOWDT                    //No Watch Dog Timer 
+.................... #FUSES NOBROWNOUT               //No brownout reset 
+.................... #FUSES NOLVP                    //No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES XT                       //Crystal or ceramic resonator (Xtal) 
+.................... #FUSES NOPROTECT                //No protection against reading to ROM memory 
+.................... #FUSES NOPUT                    //No Power Up Timer. Defines if PUT is not desired 
+.................... #FUSES NOWRT                    //Program memory not write protected 
+.................... #FUSES NODEBUG                  //No Debug mode for ICD 
+.................... #FUSES NOCPD                    //No Code Protected Data. Used when protection of EEPROM memory is not requested 
+....................  
+.................... #use delay(crystal=20000000)    //Oscillator frequency used for the delay function 
+0004:  MOVLW  21
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   017
+000A:  MOVLW  06
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  7B
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  DECFSZ 00,F
+0016:  GOTO   00A
+0017:  BCF    0A.3
+0018:  BCF    0A.4
+0019:  GOTO   042 (RETURN)
+....................  
+.................... #use fast_io(a)                 //Port processing commands are valid for A port 
+.................... #use fast_io(b)                 //Port processing commands are valid for B port 
+....................  
+....................  
+....................  
+.................... //Define Macro 
+.................... #define     button    pin_A0 
+....................  
+.................... int8 i = 1;  //Global variable 8 bit 
+....................  
+.................... void main() 
+001A:  MOVLW  01
+001B:  MOVWF  20
+001C:  BSF    03.5
+001D:  BSF    1F.0
+001E:  BSF    1F.1
+001F:  BSF    1F.2
+0020:  BCF    1F.3
+0021:  BCF    03.7
+0022:  MOVLW  1F
+0023:  ANDWF  03,F
+.................... { 
+....................    setup_psp(PSP_DISABLED);           //PSP unit is disabled 
+0024:  BCF    09.4
+....................    setup_timer_1(T1_DISABLED);        //T1 unit is disabled 
+0025:  BCF    03.5
+0026:  CLRF   10
+....................    setup_timer_2(T2_DISABLED, 0, 1);  //T2 unit is disabled 
+0027:  MOVLW  00
+0028:  MOVWF  78
+0029:  MOVWF  12
+002A:  MOVLW  00
+002B:  BSF    03.5
+002C:  MOVWF  12
+....................    setup_adc_ports(NO_ANALOGS);       //There is no analog input  
+002D:  BSF    1F.0
+002E:  BSF    1F.1
+002F:  BSF    1F.2
+0030:  BCF    1F.3
+....................    setup_adc(ADC_OFF);                //ADC unit is disabled 
+0031:  BCF    03.5
+0032:  BCF    1F.0
+....................    setup_CCP1(CCP_OFF);               //CCP1 unit is disabled 
+0033:  MOVLW  F0
+0034:  ANDWF  17,F
+....................    setup_CCP2(CCP_OFF);               //CCP2 unit is disabled 
+0035:  ANDWF  1D,F
+....................     
+....................    set_tris_a(0x01);   //RA0 pin set as input 
+0036:  MOVLW  01
+0037:  BSF    03.5
+0038:  MOVWF  05
+....................    set_tris_b(0x00);   //Port B is set as output 
+0039:  MOVLW  00
+003A:  MOVWF  06
+....................     
+....................    output_b(0x00);     //B port output pins are reset 
+003B:  BCF    03.5
+003C:  CLRF   06
+....................     
+....................    while(TRUE) 
+....................    { 
+....................       if(input(button)){  
+003D:  BTFSS  05.0
+003E:  GOTO   04B
+....................          delay_ms(15);  //15 ms delay to avoid button arc 
+003F:  MOVLW  0F
+0040:  MOVWF  21
+0041:  GOTO   004
+....................           
+....................          output_b(i);   //The value of 1 of the counter is loading to port B 
+0042:  MOVF   20,W
+0043:  MOVWF  06
+....................          ++i;           //increase i value 
+0044:  INCF   20,F
+....................          while(input(button)) /*It waits until the button is not pressed */ 
+0045:  BTFSC  05.0
+0046:  GOTO   045
+....................             ; //Null statement 
+....................              
+....................          if(10 == i)    //Returning to the beginning as there are 10 numbers 
+0047:  MOVF   20,W
+0048:  SUBLW  0A
+0049:  BTFSC  03.2
+....................             i = 0; 
+004A:  CLRF   20
+....................       } 
+004B:  GOTO   03D
+....................    } 
+....................  
+.................... } 
+004C:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F3A   HS NOWDT NOPUT NOBROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT

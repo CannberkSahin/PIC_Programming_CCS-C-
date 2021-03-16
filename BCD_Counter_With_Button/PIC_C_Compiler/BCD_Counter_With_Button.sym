@@ -1,0 +1,57 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004-005 @WRITE_PROGRAM_MEMORY8.P2
+008     PSP_DATA
+015     CCP_1_LOW
+015     CCP_1
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B     CCP_2
+01C     CCP_2_HIGH
+020     i
+021     @delay_ms1.P1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+10D-10E @READ_PROGRAM_MEMORY8.P1
+10D-10E @WRITE_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+000004  @delay_ms1
+00001A  @cinit1
+00001A  main
+000021  @cinit2
+
+Project Directory:
+    C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\BCD_Counter_With_Button\PIC_C_Compiler\
+
+Project Files:
+    BCD_Counter_With_Button.c                               [16-Mar-21 23:14  CRC=756A758F]
+    BCD_Counter_With_Button.h                               [16-Mar-21 23:03  CRC=4F1249B1]
+    ..\..\..\..\..\..\..\Program Files (x86)\PICC\Devices\16F877.h [21-Haz-13 16:04  CRC=A355A189]
+
+Source signature=0B280252
+
+Units:
+    BCD_Counter_With_Button (main)
+
+Compiler Settings:
+    Processor:      PIC16F877
+    Pointer Size:   16
+    ADC Range:      0-65535
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    XREF file:   BCD_Counter_With_Button.xsym
+    Errors:      BCD_Counter_With_Button.err
+    Ext Symbols: BCD_Counter_With_Button.esym
+    INHX8:       BCD_Counter_With_Button.hex
+    Symbols:     BCD_Counter_With_Button.sym
+    List:        BCD_Counter_With_Button.lst
+    Debug/COFF:  BCD_Counter_With_Button.cof
+    Project:     BCD_Counter_With_Button.ccspjt
+    Call Tree:   BCD_Counter_With_Button.tre
+    Statistics:  BCD_Counter_With_Button.STA

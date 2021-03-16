@@ -1,0 +1,11 @@
+#include <BCD_Counter_With_Button.h>
+
+void main()
+{
+
+	while(TRUE)
+	{
+		//TODO: User Code
+	}
+
+}

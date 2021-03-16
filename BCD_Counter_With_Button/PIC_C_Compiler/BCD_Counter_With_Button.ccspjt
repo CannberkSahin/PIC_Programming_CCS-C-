@@ -1,0 +1,23 @@
+[PROJECT]
+Target=BCD_Counter_With_Button.hex
+Processor_Text=PIC16F877
+CCSVerions=5.007
+Compiler=PCM
+CCSVersion=5.007
+[Target Data]
+FileList=BCD_Counter_With_Button.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\;C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\BCD_Counter_With_Button\PIC_C_Compiler\
+[C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\BCD_Counter_With_Button\PIC_C_Compiler\BCD_Counter_With_Button]
+Type=4
+[mru-list]
+1=BCD_Counter_With_Button.c
+[Opened Files]
+1=BCD_Counter_With_Button.c
+2=
+3=
+[BCD_Counter_With_Button.c]
+Type=4
+[Units]
+Count=1
+1=BCD_Counter_With_Button (main)
