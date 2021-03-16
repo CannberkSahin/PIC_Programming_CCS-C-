@@ -1,0 +1,56 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004-005 @WRITE_PROGRAM_MEMORY8.P2
+006     portb
+008     PSP_DATA
+015     CCP_1_LOW
+015     CCP_1
+016     CCP_1_HIGH
+01B     CCP_2
+01B     CCP_2_LOW
+01C     CCP_2_HIGH
+020     read_input_a
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+10D-10E @WRITE_PROGRAM_MEMORY8.P1
+10D-10E @READ_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+000004  main
+000004  @cinit1
+000009  @cinit2
+
+Project Directory:
+    C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\Read_PortA_Send_Data_PortB\PIC_C_Compiler\
+
+Project Files:
+    Read_PortA_Send_Data_PortB.c                            [16-Mar-21 12:28  CRC=45011647]
+    Read_PortA_Send_Data_PortB.h                            [16-Mar-21 12:17  CRC=4F1249B1]
+    ..\..\..\..\..\..\..\Program Files (x86)\PICC\Devices\16F877.h [21-Haz-13 16:04  CRC=A355A189]
+
+Source signature=DABEA30A
+
+Units:
+    Read_PortA_Send_Data_PortB (main)
+
+Compiler Settings:
+    Processor:      PIC16F877
+    Pointer Size:   16
+    ADC Range:      0-65535
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    XREF file:   Read_PortA_Send_Data_PortB.xsym
+    Errors:      Read_PortA_Send_Data_PortB.err
+    Ext Symbols: Read_PortA_Send_Data_PortB.esym
+    INHX8:       Read_PortA_Send_Data_PortB.hex
+    Symbols:     Read_PortA_Send_Data_PortB.sym
+    List:        Read_PortA_Send_Data_PortB.lst
+    Debug/COFF:  Read_PortA_Send_Data_PortB.cof
+    Project:     Read_PortA_Send_Data_PortB.ccspjt
+    Call Tree:   Read_PortA_Send_Data_PortB.tre
+    Statistics:  Read_PortA_Send_Data_PortB.STA

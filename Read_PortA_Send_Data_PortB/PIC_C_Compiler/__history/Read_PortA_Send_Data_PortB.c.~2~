@@ -1,0 +1,22 @@
+/*****************************************************************************
+*Project Name: Read port a and sent data to port b.
+*Engineer: Canberk SAHIN
+*Project Microcontroller: PIC16F877
+*Version: V1
+*Create Date: 16.03.2021
+*Update Date: 16.03.2021
+*University: Bursa Technical University
+*Revision: -
+******************************************************************************/
+#include <Read_PortA_Send_Data_PortB.h>
+
+
+void main()
+{
+
+   while(TRUE)
+   {
+      //TODO: User Code
+   }
+
+}

@@ -1,0 +1,125 @@
+CCS PCM C Compiler, Version 5.007, 61971               16-Mar-21 12:28
+
+               Filename:   C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\Read_PortA_Send_Data_PortB\PIC_C_Compiler\Read_PortA_Send_Data_PortB.lst
+
+               ROM used:   45 words (1%)
+                           Largest free fragment is 2048
+               RAM used:   6 (2%) at main() level
+                           6 (2%) worst case
+               Stack used: 0 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   004
+0003:  NOP
+.................... /***************************************************************************** 
+.................... *Project Name: Read port a and sent data to port b. 
+.................... *Engineer: Canberk SAHIN 
+.................... *Project Microcontroller: PIC16F877 
+.................... *Version: V1 
+.................... *Create Date: 16.03.2021 
+.................... *Update Date: 16.03.2021 
+.................... *University: Bursa Technical University 
+.................... *Revision: - 
+.................... ******************************************************************************/ 
+.................... #include <Read_PortA_Send_Data_PortB.h> 
+.................... #include <16F877.h> 
+.................... //////// Standard Header file for the PIC16F877 device //////////////// 
+.................... #device PIC16F877 
+....................  
+.................... #list 
+....................  
+.................... #device ADC=16 
+....................  
+.................... #FUSES NOWDT                    //No Watch Dog Timer 
+.................... #FUSES NOBROWNOUT               //No brownout reset 
+.................... #FUSES NOLVP                    //No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES XT                       //Crystal or ceramic resonator (Xtal) 
+.................... #FUSES NOPROTECT                //No protection against reading to ROM memory 
+.................... #FUSES NOPUT                    //No Power Up Timer. Defines if PUT is not desired 
+.................... #FUSES NOWRT                    //Program memory not write protected 
+.................... #FUSES NODEBUG                  //No Debug mode for ICD 
+.................... #FUSES NOCPD                    //No Code Protected Data. Used when protection of EEPROM memory is not requested 
+....................  
+.................... #use delay(crystal=20000000)    //Oscillator frequency used for the delay function 
+....................  
+.................... #use fast_io(a)                 //Port processing commands are valid for A port 
+.................... #use fast_io(b)                 //Port processing commands are valid for B port 
+....................  
+....................  
+....................  
+.................... //Define Macro 
+.................... #byte portb = 0x06    //portb is initialized with the controller's B port register's address 
+....................  
+.................... //Define global varible  
+.................... int8 read_input_a;    //An 8-bit integer type global variable is defined. 
+....................  
+.................... void main() 
+0004:  BSF    03.5
+0005:  BSF    1F.0
+0006:  BSF    1F.1
+0007:  BSF    1F.2
+0008:  BCF    1F.3
+0009:  BCF    03.7
+000A:  MOVLW  1F
+000B:  ANDWF  03,F
+.................... { 
+....................    setup_psp(PSP_DISABLED);           //PSP unit is disabled 
+000C:  BCF    09.4
+....................    setup_timer_1(T1_DISABLED);        //T1 unit is disabled 
+000D:  BCF    03.5
+000E:  CLRF   10
+....................    setup_timer_2(T2_DISABLED, 0, 1);  //T2 unit is disabled 
+000F:  MOVLW  00
+0010:  MOVWF  78
+0011:  MOVWF  12
+0012:  MOVLW  00
+0013:  BSF    03.5
+0014:  MOVWF  12
+....................    setup_adc_ports(NO_ANALOGS);       //There is no analog input  
+0015:  BSF    1F.0
+0016:  BSF    1F.1
+0017:  BSF    1F.2
+0018:  BCF    1F.3
+....................    setup_adc(ADC_OFF);                //ADC unit is disabled 
+0019:  BCF    03.5
+001A:  BCF    1F.0
+....................    setup_CCP1(CCP_OFF);               //CCP1 unit is disabled 
+001B:  MOVLW  F0
+001C:  ANDWF  17,F
+....................    setup_CCP2(CCP_OFF);               //CCP2 unit is disabled 
+001D:  ANDWF  1D,F
+....................     
+....................    set_tris_a(0xFF);  //All pins of port A are input 
+001E:  MOVLW  FF
+001F:  BSF    03.5
+0020:  MOVWF  05
+....................    set_tris_b(0x00);  //All pins of port B are output 
+0021:  MOVLW  00
+0022:  MOVWF  06
+....................     
+....................    output_b(0x00);    //B port pins reset 
+0023:  BCF    03.5
+0024:  CLRF   06
+....................  
+....................    while(TRUE) 
+....................    { 
+....................       read_input_a = input_a();  //Reading input of port A 
+0025:  MOVF   05,W
+0026:  MOVWF  20
+....................       read_input_a = read_input_a & 0b00111111; //The first two unused pins of port B are masked 
+0027:  MOVLW  3F
+0028:  ANDWF  20,F
+....................       portb = read_input_a;  //Output of B port is the value read from A port 
+0029:  MOVF   20,W
+002A:  MOVWF  06
+002B:  GOTO   025
+....................    } 
+....................  
+.................... } 
+002C:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F3A   HS NOWDT NOPUT NOBROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT

@@ -1,0 +1,11 @@
+#include <Read_PortA_Send_Data_PortB.h>
+
+void main()
+{
+
+	while(TRUE)
+	{
+		//TODO: User Code
+	}
+
+}

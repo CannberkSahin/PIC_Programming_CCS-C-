@@ -1,0 +1,23 @@
+[PROJECT]
+Target=Read_PortA_Send_Data_PortB.hex
+Processor_Text=PIC16F877
+CCSVerions=5.007
+Compiler=PCM
+CCSVersion=5.007
+[Target Data]
+FileList=Read_PortA_Send_Data_PortB.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\;C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\Read_PortA_Send_Data_PortB\PIC_C_Compiler\
+[C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\Read_PortA_Send_Data_PortB\PIC_C_Compiler\Read_PortA_Send_Data_PortB]
+Type=4
+[mru-list]
+1=Read_PortA_Send_Data_PortB.c
+[Opened Files]
+1=Read_PortA_Send_Data_PortB.c
+2=
+3=
+[Read_PortA_Send_Data_PortB.c]
+Type=4
+[Units]
+Count=1
+1=Read_PortA_Send_Data_PortB (main)
