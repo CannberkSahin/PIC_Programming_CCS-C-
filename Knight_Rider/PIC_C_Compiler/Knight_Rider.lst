@@ -1,0 +1,185 @@
+CCS PCM C Compiler, Version 5.007, 61971               17-Mar-21 13:11
+
+               Filename:   C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\Knight_Rider\PIC_C_Compiler\Knight_Rider.lst
+
+               ROM used:   94 words (1%)
+                           Largest free fragment is 2048
+               RAM used:   7 (2%) at main() level
+                           8 (2%) worst case
+               Stack used: 0 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   018
+0003:  NOP
+.................... /****************************************************************************** 
+.................... *Project Name: Knight Rider Circuit With Led 
+.................... *Engineer: Canberk SAHIN 
+.................... *Project Microcontroller: PIC16F877 
+.................... *Version: V1 
+.................... *Create Date: 17.03.2021 
+.................... *Update Date: 17.03.2021 
+.................... *University: Bursa Technical University 
+.................... *Revision: -  
+.................... ******************************************************************************/ 
+.................... #include <Knight_Rider.h> 
+.................... #include <16F877.h> 
+.................... //////// Standard Header file for the PIC16F877 device //////////////// 
+.................... #device PIC16F877 
+....................  
+.................... #list 
+....................  
+.................... #device ADC=16 
+....................  
+.................... #FUSES NOWDT                    //No Watch Dog Timer 
+.................... #FUSES NOBROWNOUT               //No brownout reset 
+.................... #FUSES NOLVP                    //No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES XT                       //Crystal or ceramic resonator (Xtal) 
+.................... #FUSES NOPROTECT                //No protection against reading to ROM memory 
+.................... #FUSES NOPUT                    //No Power Up Timer. Defines if PUT is not desired 
+.................... #FUSES NOWRT                    //Program memory not write protected 
+.................... #FUSES NODEBUG                  //No Debug mode for ICD 
+.................... #FUSES NOCPD                    //No Code Protected Data. Used when protection of EEPROM memory is not requested 
+....................  
+.................... #use delay(crystal=20000000)    //Oscillator frequency used for the delay function 
+0004:  MOVLW  22
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   017
+000A:  MOVLW  06
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  7B
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  DECFSZ 00,F
+0016:  GOTO   00A
+0017:  RETURN
+....................  
+.................... #use fast_io(b)                 //Port processing commands are valid for B port 
+....................  
+....................  
+....................  
+....................  
+.................... int8 i, led;      //Global variables of 8-bit data type 
+....................  
+.................... void main() 
+0018:  BSF    03.5
+0019:  BSF    1F.0
+001A:  BSF    1F.1
+001B:  BSF    1F.2
+001C:  BCF    1F.3
+001D:  BCF    03.7
+001E:  MOVLW  1F
+001F:  ANDWF  03,F
+.................... { 
+....................  
+....................    setup_psp(PSP_DISABLED);           //PSP unit is disabled 
+0020:  BCF    09.4
+....................    setup_timer_1(T1_DISABLED);        //T1 unit is disabled 
+0021:  BCF    03.5
+0022:  CLRF   10
+....................    setup_timer_2(T2_DISABLED, 0, 1);  //T2 unit is disabled 
+0023:  MOVLW  00
+0024:  MOVWF  78
+0025:  MOVWF  12
+0026:  MOVLW  00
+0027:  BSF    03.5
+0028:  MOVWF  12
+....................    setup_adc_ports(NO_ANALOGS);       //There is no analog input  
+0029:  BSF    1F.0
+002A:  BSF    1F.1
+002B:  BSF    1F.2
+002C:  BCF    1F.3
+....................    setup_adc(ADC_OFF);                //ADC unit is disabled 
+002D:  BCF    03.5
+002E:  BCF    1F.0
+....................    setup_CCP1(CCP_OFF);               //CCP1 unit is disabled. 
+002F:  MOVLW  F0
+0030:  ANDWF  17,F
+....................    setup_CCP2(CCP_OFF);               //CCP2 unit is disabled. 
+0031:  ANDWF  1D,F
+....................     
+....................    set_tris_b(0x00);                  //Port B is completely out 
+0032:  MOVLW  00
+0033:  BSF    03.5
+0034:  MOVWF  06
+....................    output_b(0x00);                    //B port output bits are all 0(zero)  
+0035:  BCF    03.5
+0036:  CLRF   06
+....................     
+....................    while(TRUE) 
+....................    { 
+....................       led = 1; //0b00000001 
+0037:  MOVLW  01
+0038:  MOVWF  21
+....................        
+....................       /*The LEDs will be turned on in order from top to bottom.*/ 
+....................       for(i=0; i<8; ++i){ 
+0039:  CLRF   20
+003A:  MOVF   20,W
+003B:  SUBLW  07
+003C:  BTFSS  03.0
+003D:  GOTO   047
+....................          output_b(led);   //led = 0b00000001 
+003E:  MOVF   21,W
+003F:  MOVWF  06
+....................          led = led << 1;  //led = 0b00000010 (led variable value is shifted 1 bit left) 
+0040:  BCF    03.0
+0041:  RLF    21,F
+....................          delay_ms(100);   //100 mili second delay 
+0042:  MOVLW  64
+0043:  MOVWF  22
+0044:  CALL   004
+0045:  INCF   20,F
+0046:  GOTO   03A
+....................       } 
+....................        
+....................       led = 0x80;  //0b10000000 
+0047:  MOVLW  80
+0048:  MOVWF  21
+....................       output_b(led); //The last LED will stay on 
+0049:  MOVF   21,W
+004A:  MOVWF  06
+....................       delay_ms(100); 
+004B:  MOVLW  64
+004C:  MOVWF  22
+004D:  CALL   004
+....................        
+....................       /*The LEDs will be turned on in order from bottom to top.*/ 
+....................       for(i=0; i<7; ++i){  
+004E:  CLRF   20
+004F:  MOVF   20,W
+0050:  SUBLW  06
+0051:  BTFSS  03.0
+0052:  GOTO   05C
+....................          led = led >> 1;  //led = 0b11111111 
+0053:  BCF    03.0
+0054:  RRF    21,F
+....................          output_b(led);   //led = 0b11111110 -> 0b11111100 -> 0b11111000 etc. 
+0055:  MOVF   21,W
+0056:  MOVWF  06
+....................          delay_ms(100);   //100 mili second delay 
+0057:  MOVLW  64
+0058:  MOVWF  22
+0059:  CALL   004
+005A:  INCF   20,F
+005B:  GOTO   04F
+....................       } 
+005C:  GOTO   037
+....................    } 
+....................  
+.................... } 
+005D:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F3A   HS NOWDT NOPUT NOBROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT
