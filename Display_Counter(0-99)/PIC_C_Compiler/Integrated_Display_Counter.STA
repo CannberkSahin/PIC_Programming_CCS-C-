@@ -1,0 +1,51 @@
+
+ROM used:   175/8192 (2%)
+            175/8192 (2%) including unused fragments
+
+            0.2 Average locations per line
+            4.2 Average locations per statement
+
+RAM used:   9/368 (2%) at main() level
+            11/368 (3%) worst case
+
+Stack used: 0 worst case (0 in main + 0 for interrupts)
+Stack size: 8
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   80    42 100  Integrated_Display_Counter.c
+   20     0   0  Integrated_Display_Counter.h
+  629     0   0  ..\..\..\..\..\..\..\Program Files (x86)\PICC\Devices\16F877.h
+----- -----
+  729    42 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     20  11    1             @delay_ms1
+0     14   8    0             @const615
+0    116  66    1  1184  5.9  main
+0     21  12    3             @DIV88
+ Inline         0             @cinit1
+
+Program metrics:
+    Functions               1
+    Statements              42
+    Comments                166
+    Volume (V)              1194
+    Difficulty (D)          5.6
+    Effort to implement (E) 6688
+    Time to implement (T)   6 minutes
+    Est Delivered Bugs (B)  0
+    Cyclomatic Complexity   2
+    Maintainability (MI)    118
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-007FF   171  1873  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+

@@ -1,0 +1,294 @@
+CCS PCM C Compiler, Version 5.007, 61971               18-Mar-21 19:04
+
+               Filename:   C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\Display_Counter(0-99)\PIC_C_Compiler\Integrated_Display_Counter.lst
+
+               ROM used:   175 words (2%)
+                           Largest free fragment is 2048
+               RAM used:   9 (2%) at main() level
+                           11 (3%) worst case
+               Stack used: 0 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   03B
+0003:  NOP
+.................... /****************************************************************************** 
+.................... *Project Name: Integrated Display Counter (0-99) Two Digits 
+.................... *Engineer: Canberk SAHIN 
+.................... *Project Microcontroller: PIC16F877 
+.................... *Version: V1 
+.................... *Create Date: 17.03.2021 
+.................... *Update Date: 17.03.2021 
+.................... *University: Bursa Technical University 
+.................... *Revision: -  
+.................... ******************************************************************************/ 
+.................... #include <Integrated_Display_Counter.h> 
+.................... #include <16F877.h> 
+.................... //////// Standard Header file for the PIC16F877 device //////////////// 
+.................... #device PIC16F877 
+0004:  BCF    0A.0
+0005:  BCF    0A.1
+0006:  BCF    0A.2
+0007:  ADDWF  02,F
+0008:  RETLW  3F
+0009:  RETLW  06
+000A:  RETLW  5B
+000B:  RETLW  4F
+000C:  RETLW  66
+000D:  RETLW  6D
+000E:  RETLW  7D
+000F:  RETLW  07
+0010:  RETLW  7F
+0011:  RETLW  6F
+0012:  MOVF   24,W
+0013:  CLRF   78
+0014:  SUBWF  23,W
+0015:  BTFSC  03.0
+0016:  GOTO   01A
+0017:  MOVF   23,W
+0018:  MOVWF  77
+0019:  GOTO   026
+001A:  CLRF   77
+001B:  MOVLW  08
+001C:  MOVWF  25
+001D:  RLF    23,F
+001E:  RLF    77,F
+001F:  MOVF   24,W
+0020:  SUBWF  77,W
+0021:  BTFSC  03.0
+0022:  MOVWF  77
+0023:  RLF    78,F
+0024:  DECFSZ 25,F
+0025:  GOTO   01D
+0026:  RETURN
+....................  
+.................... #list 
+....................  
+.................... #device ADC=16 
+....................  
+.................... #FUSES NOWDT                    //No Watch Dog Timer 
+.................... #FUSES NOBROWNOUT               //No brownout reset 
+.................... #FUSES NOLVP                    //No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES XT                       //Crystal or ceramic resonator (Xtal) 
+.................... #FUSES NOPROTECT                //No protection against reading to ROM memory 
+.................... #FUSES NOPUT                    //No Power Up Timer. Defines if PUT is not desired 
+.................... #FUSES NOWRT                    //Program memory not write protected 
+.................... #FUSES NODEBUG                  //No Debug mode for ICD 
+.................... #FUSES NOCPD                    //No Code Protected Data. Used when protection of EEPROM memory is not requested 
+....................  
+.................... #use delay(crystal=20000000)    //Oscillator frequency used for the delay function 
+0027:  MOVLW  23
+0028:  MOVWF  04
+0029:  BCF    03.7
+002A:  MOVF   00,W
+002B:  BTFSC  03.2
+002C:  GOTO   03A
+002D:  MOVLW  06
+002E:  MOVWF  78
+002F:  CLRF   77
+0030:  DECFSZ 77,F
+0031:  GOTO   030
+0032:  DECFSZ 78,F
+0033:  GOTO   02F
+0034:  MOVLW  7B
+0035:  MOVWF  77
+0036:  DECFSZ 77,F
+0037:  GOTO   036
+0038:  DECFSZ 00,F
+0039:  GOTO   02D
+003A:  RETURN
+....................  
+.................... #use fast_io(a)                 //Port processing commands are valid for A port 
+.................... #use fast_io(b)                 //Port processing commands are valid for B port 
+....................  
+....................  
+....................  
+....................  
+.................... //Define Macros 
+.................... #define display_1 pin_a0 //dispaly_1 expression equals pin_a0 
+.................... #define display_2 pin_a1 //dispaly_2 expression equals pin_a1 
+.................... #define button    pin_a2 //button expression equals pin_a2 
+....................  
+.................... //Define global variables 
+.................... char ones=0, tens=0, num=0; 
+....................  
+.................... /*Data values for common cathode display*/ 
+.................... const int digit[10]={0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F}; 
+....................  
+.................... void main() 
+003B:  CLRF   20
+003C:  CLRF   21
+003D:  CLRF   22
+003E:  BSF    03.5
+003F:  BSF    1F.0
+0040:  BSF    1F.1
+0041:  BSF    1F.2
+0042:  BCF    1F.3
+0043:  BCF    03.7
+0044:  MOVLW  1F
+0045:  ANDWF  03,F
+.................... { 
+....................    setup_psp(PSP_DISABLED);           //PSP unit is disabled   
+0046:  BCF    09.4
+....................    setup_timer_1(T1_DISABLED);        //T1 unit is disabled 
+0047:  BCF    03.5
+0048:  CLRF   10
+....................    setup_timer_2(T2_DISABLED, 0, 1);  //T2 unit is disabled 
+0049:  MOVLW  00
+004A:  MOVWF  78
+004B:  MOVWF  12
+004C:  MOVLW  00
+004D:  BSF    03.5
+004E:  MOVWF  12
+....................    setup_adc_ports(NO_ANALOGS);       //There is no analog input  
+004F:  BSF    1F.0
+0050:  BSF    1F.1
+0051:  BSF    1F.2
+0052:  BCF    1F.3
+....................    setup_adc(ADC_OFF);                //ADC unit is disabled 
+0053:  BCF    03.5
+0054:  BCF    1F.0
+....................    setup_CCP1(CCP_OFF);               //CCP1 unit is disabled. 
+0055:  MOVLW  F0
+0056:  ANDWF  17,F
+....................    setup_CCP2(CCP_OFF);               //CCP2 unit is disabled. 
+0057:  ANDWF  1D,F
+....................     
+....................    set_tris_a(0xFC);  //RA0, RA1 output, Other A port pins input FC=(1111 1100) 
+0058:  MOVLW  FC
+0059:  BSF    03.5
+005A:  MOVWF  05
+....................    set_tris_b(0x00);  //Port A is completely set as output 
+005B:  MOVLW  00
+005C:  MOVWF  06
+....................     
+....................    output_low(display_1);  //1st Display in passive  
+005D:  BCF    03.5
+005E:  BCF    05.0
+....................    output_low(display_2);  //2nd Display in passive 
+005F:  BCF    05.1
+....................     
+....................    while(TRUE) 
+....................    { 
+....................       ones=num%10;  //Calculate Ones digit 
+0060:  MOVF   22,W
+0061:  MOVWF  23
+0062:  MOVLW  0A
+0063:  MOVWF  24
+0064:  CALL   012
+0065:  MOVF   77,W
+0066:  MOVWF  20
+....................       tens=num/10;  //Calculate Tens digit 
+0067:  MOVF   22,W
+0068:  MOVWF  23
+0069:  MOVLW  0A
+006A:  MOVWF  24
+006B:  CALL   012
+006C:  MOVF   78,W
+006D:  MOVWF  21
+....................       
+....................       output_low(display_2);  //2nd display is active 
+006E:  BCF    05.1
+....................       output_b(digit[ones]);  //Numbers in the ones place were sent to the display 
+006F:  MOVF   20,W
+0070:  CALL   004
+0071:  MOVWF  23
+0072:  MOVWF  06
+....................       delay_ms(5);            //5 mili second delay 
+0073:  MOVLW  05
+0074:  MOVWF  23
+0075:  CALL   027
+....................       output_high(display_2);  //2nd Display in passive 
+0076:  BSF    05.1
+....................       output_low(display_1); //1st Display is active 
+0077:  BCF    05.0
+....................       output_b(digit[tens]);  //Numbers in the tens place were sent to the display 
+0078:  MOVF   21,W
+0079:  CALL   004
+007A:  MOVWF  23
+007B:  MOVWF  06
+....................       delay_ms(5);            //5 mili second delay 
+007C:  MOVLW  05
+007D:  MOVWF  23
+007E:  CALL   027
+....................       output_high(display_1);  //1st Display in passive 
+007F:  BSF    05.0
+....................        
+....................       if(input(button)){ 
+0080:  BTFSS  05.2
+0081:  GOTO   0AD
+....................          delay_ms(10);     //10 mili second delay 
+0082:  MOVLW  0A
+0083:  MOVWF  23
+0084:  CALL   027
+....................           
+....................          ++num;  //increase num variable 
+0085:  INCF   22,F
+....................           
+....................          if(num==100){ 
+0086:  MOVF   22,W
+0087:  SUBLW  64
+0088:  BTFSC  03.2
+....................              num=0; 
+0089:  CLRF   22
+....................          } 
+....................              
+....................          ones=num%10; 
+008A:  MOVF   22,W
+008B:  MOVWF  23
+008C:  MOVLW  0A
+008D:  MOVWF  24
+008E:  CALL   012
+008F:  MOVF   77,W
+0090:  MOVWF  20
+....................          tens=num/10; 
+0091:  MOVF   22,W
+0092:  MOVWF  23
+0093:  MOVLW  0A
+0094:  MOVWF  24
+0095:  CALL   012
+0096:  MOVF   78,W
+0097:  MOVWF  21
+....................           
+....................          while(input(button)){ 
+0098:  BTFSS  05.2
+0099:  GOTO   0AD
+....................             output_low(display_2);  //2nd display is active 
+009A:  BCF    05.1
+....................             output_b(digit[ones]);  //Numbers in the ones place were sent to the display 
+009B:  MOVF   20,W
+009C:  CALL   004
+009D:  MOVWF  23
+009E:  MOVWF  06
+....................             delay_ms(5);            //5 mili second delay 
+009F:  MOVLW  05
+00A0:  MOVWF  23
+00A1:  CALL   027
+....................             output_high(display_2);  //2nd Display in passive 
+00A2:  BSF    05.1
+....................             output_low(display_1); //1st Display is active 
+00A3:  BCF    05.0
+....................             output_b(digit[tens]);  //Numbers in the tens place were sent to the display 
+00A4:  MOVF   21,W
+00A5:  CALL   004
+00A6:  MOVWF  23
+00A7:  MOVWF  06
+....................             delay_ms(5);            //5 mili second delay 
+00A8:  MOVLW  05
+00A9:  MOVWF  23
+00AA:  CALL   027
+....................             output_high(display_1);  //1st Display in passive 
+00AB:  BSF    05.0
+00AC:  GOTO   098
+....................          } 
+....................       } 
+00AD:  GOTO   060
+....................    } 
+....................        
+.................... } 
+00AE:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F3A   HS NOWDT NOPUT NOBROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT

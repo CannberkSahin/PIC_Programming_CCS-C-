@@ -1,0 +1,80 @@
+/******************************************************************************
+*Project Name: Integrated Display Counter (0-99) Two Digits
+*Engineer: Canberk SAHIN
+*Project Microcontroller: PIC16F877
+*Version: V1
+*Create Date: 17.03.2021
+*Update Date: 17.03.2021
+*University: Bursa Technical University
+*Revision: - 
+******************************************************************************/
+#include <Integrated_Display_Counter.h>
+
+//Define Macros
+#define       display_1        pin_a0 //dispaly_1 expression equals pin_a0
+#define       display_2        pin_a1 //dispaly_2 expression equals pin_a1
+#define       button           pin_a2 //button expression equals pin_a2
+
+//Define global variables
+char ones=0, tens=0, num=0;
+
+/*Data values for common cathode display*/
+const int digit[10] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07,
+0x7F, 0x6F};
+
+void main()
+{
+   setup_psp(PSP_DISABLED);           //PSP unit is disabled  
+   setup_timer_1(T1_DISABLED);        //T1 unit is disabled
+   setup_timer_2(T2_DISABLED, 0, 1);  //T2 unit is disabled
+   setup_adc_ports(NO_ANALOGS);       //There is no analog input 
+   setup_adc(ADC_OFF);                //ADC unit is disabled
+   setup_CCP1(CCP_OFF);               //CCP1 unit is disabled.
+   setup_CCP2(CCP_OFF);               //CCP2 unit is disabled.
+   
+   set_tris_a(0xFC);  //RA0, RA1 output, Other A port pins input FC=(1111 1100)
+   set_tris_b(0x00);  //Port A is completely set as output
+   
+   output_low(display_1);  //1st Display in passive 
+   output_low(display_2);  //2nd Display in passive
+
+   while(TRUE)
+   {
+      //ones=num%10;  //Calculate Ones digit
+      //tens=num/10;  //Calculate Tens digit
+      
+      output_high(display_2); //2nd display is active
+      output_b(digit[ones]);  //Numbers in the ones place were sent to the display
+      delay_ms(5);            //5 mili second delay
+      output_low(display_2);  //2nd Display in passive
+      output_high(display_1); //1st Display is active
+      output_b(digit[tens]);  //Numbers in the tens place were sent to the display
+      delay_ms(5);            //5 mili second delay
+      output_low(display_1);  //1st Display in passive
+      
+      if(input(button)){
+         delay_ms(10);     //10 mili second delay
+         
+         ++num;  //increase num variable
+         
+         if(num == 100){
+             num = 0;
+         }
+            
+         ones = num % 10;
+         tens = num / 10;
+         
+         while(input(button)){
+            output_high(display_2); //2nd display is active
+            output_b(digit[ones]);  //Numbers in the ones place were sent to the display
+            delay_ms(5);            //5 mili second delay
+            output_low(display_2);  //2nd Display in passive
+            output_high(display_1); //1st Display is active
+            output_b(digit[tens]);  //Numbers in the tens place were sent to the display
+            delay_ms(5);            //5 mili second delay
+            output_low(display_1);  //1st Display in passive
+         }
+      }
+   }
+
+}
