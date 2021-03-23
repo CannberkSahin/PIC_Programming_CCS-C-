@@ -1,0 +1,303 @@
+CCS PCM C Compiler, Version 5.007, 61971               23-Mar-21 16:56
+
+               Filename:   C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\Port_Multiplexing_8255_IC\PIC_C_Compiler\Port_Multiplexing_8255_IC.lst
+
+               ROM used:   175 words (2%)
+                           Largest free fragment is 2048
+               RAM used:   6 (2%) at main() level
+                           8 (2%) worst case
+               Stack used: 0 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   080
+0003:  NOP
+.................... /****************************************************************************** 
+.................... *Project Name: Port Multiplexing With 8255 IC 
+.................... *Engineer: Canberk SAHIN 
+.................... *Project Microcontroller: PIC16F877 
+.................... *Version: V1 
+.................... *Create Date: 21.03.2021 
+.................... *Update Date: 21.03.2021 
+.................... *University: Bursa Technical University 
+.................... *Revision: -  
+.................... ******************************************************************************/ 
+.................... #include <Port_Multiplexing_8255_IC.h> 
+.................... #include <16F877.h> 
+.................... //////// Standard Header file for the PIC16F877 device //////////////// 
+.................... #device PIC16F877 
+....................  
+.................... #list 
+....................  
+.................... #device ADC=16 
+....................  
+.................... #FUSES NOWDT                    //No Watch Dog Timer 
+.................... #FUSES NOBROWNOUT               //No brownout reset 
+.................... #FUSES NOLVP                    //No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES XT                       //Crystal or ceramic resonator (Xtal) 
+.................... #FUSES NOPROTECT                //No protection against reading to ROM memory 
+.................... #FUSES NOPUT                    //No Power Up Timer. Defines if PUT is not desired 
+.................... #FUSES NOWRT                    //Program memory not write protected 
+.................... #FUSES NODEBUG                  //No Debug mode for ICD 
+.................... #FUSES NOCPD                    //No Code Protected Data. Used when protection of EEPROM memory is not requested 
+....................  
+.................... #use delay(crystal=20000000)    //Oscillator frequency used for the delay function 
+....................  
+.................... #use standard_io(a)             //No need to define input / output for port A 
+.................... #use standard_io(b)             //No need to define input / output for port B 
+....................  
+....................  
+....................  
+.................... //Define global variables 
+.................... int8 data; 
+....................  
+.................... //Define a write function for 8255 IC 
+.................... void _8255_write(char x, char info) 
+.................... { 
+....................    switch(x){ 
+0004:  MOVF   21,W
+0005:  XORLW  72
+0006:  BTFSC  03.2
+0007:  GOTO   012
+0008:  XORLW  13
+0009:  BTFSC  03.2
+000A:  GOTO   01D
+000B:  XORLW  03
+000C:  BTFSC  03.2
+000D:  GOTO   028
+000E:  XORLW  01
+000F:  BTFSC  03.2
+0010:  GOTO   033
+0011:  GOTO   03E
+....................       case 'r':              //If write to Register is selected 
+....................       output_a(0b00001101);  //Register write bits definition 
+0012:  BSF    03.5
+0013:  CLRF   05
+0014:  MOVLW  0D
+0015:  BCF    03.5
+0016:  MOVWF  05
+....................       output_b(info);        //The information to be written is being sent 
+0017:  BSF    03.5
+0018:  CLRF   06
+0019:  BCF    03.5
+001A:  MOVF   22,W
+001B:  MOVWF  06
+....................       break; 
+001C:  GOTO   03E
+....................        
+....................       case 'a':              //If write to port A is selected 
+....................       output_a(0b00000001);  //Writing to port A 
+001D:  BSF    03.5
+001E:  CLRF   05
+001F:  MOVLW  01
+0020:  BCF    03.5
+0021:  MOVWF  05
+....................       output_b(info);        //The information to be written is being sent 
+0022:  BSF    03.5
+0023:  CLRF   06
+0024:  BCF    03.5
+0025:  MOVF   22,W
+0026:  MOVWF  06
+....................       break; 
+0027:  GOTO   03E
+....................        
+....................       case 'b':              //If write to port B is selected 
+....................       output_a(0b00000101);  //Writing to port B 
+0028:  BSF    03.5
+0029:  CLRF   05
+002A:  MOVLW  05
+002B:  BCF    03.5
+002C:  MOVWF  05
+....................       output_b(info);        //The information to be written is being sent 
+002D:  BSF    03.5
+002E:  CLRF   06
+002F:  BCF    03.5
+0030:  MOVF   22,W
+0031:  MOVWF  06
+....................       break; 
+0032:  GOTO   03E
+....................        
+....................       case 'c':              //If write to port C is selected 
+....................       output_a(0b00001001);  //Writing to port C 
+0033:  BSF    03.5
+0034:  CLRF   05
+0035:  MOVLW  09
+0036:  BCF    03.5
+0037:  MOVWF  05
+....................       output_b(info);        //The information to be written is being sent 
+0038:  BSF    03.5
+0039:  CLRF   06
+003A:  BCF    03.5
+003B:  MOVF   22,W
+003C:  MOVWF  06
+....................       break; 
+003D:  GOTO   03E
+....................        
+....................       default:               //null process 
+....................       break; 
+....................    } 
+003E:  RETURN
+.................... } 
+....................  
+.................... //Define a read function for 8255 IC 
+.................... int _8255_read(char x) 
+.................... { 
+....................    switch(x){ 
+003F:  MOVF   21,W
+0040:  XORLW  72
+0041:  BTFSC  03.2
+0042:  GOTO   04D
+0043:  XORLW  13
+0044:  BTFSC  03.2
+0045:  GOTO   059
+0046:  XORLW  03
+0047:  BTFSC  03.2
+0048:  GOTO   065
+0049:  XORLW  01
+004A:  BTFSC  03.2
+004B:  GOTO   071
+004C:  GOTO   07D
+....................       case 'r':              //If write to Register is selected 
+....................       output_a(0b00001110);  //Reading recorder value 
+004D:  BSF    03.5
+004E:  CLRF   05
+004F:  MOVLW  0E
+0050:  BCF    03.5
+0051:  MOVWF  05
+....................       return (input_b()); 
+0052:  MOVLW  FF
+0053:  BSF    03.5
+0054:  MOVWF  06
+0055:  BCF    03.5
+0056:  MOVF   06,W
+0057:  MOVWF  78
+0058:  GOTO   07D
+....................        
+....................       case 'a':              //Reading from port A is selected 
+....................       output_a(0b00000010);  //Register write bits definition 
+0059:  BSF    03.5
+005A:  CLRF   05
+005B:  MOVLW  02
+005C:  BCF    03.5
+005D:  MOVWF  05
+....................       return (input_b());    //The function returns this value 
+005E:  MOVLW  FF
+005F:  BSF    03.5
+0060:  MOVWF  06
+0061:  BCF    03.5
+0062:  MOVF   06,W
+0063:  MOVWF  78
+0064:  GOTO   07D
+....................        
+....................       case 'b':              //Reading from port B is selected 
+....................       output_a(0b00000110);  //Register write bits definition 
+0065:  BSF    03.5
+0066:  CLRF   05
+0067:  MOVLW  06
+0068:  BCF    03.5
+0069:  MOVWF  05
+....................       return (input_b());    //The function returns this value 
+006A:  MOVLW  FF
+006B:  BSF    03.5
+006C:  MOVWF  06
+006D:  BCF    03.5
+006E:  MOVF   06,W
+006F:  MOVWF  78
+0070:  GOTO   07D
+....................        
+....................       case 'c':              //Reading from port C is selected 
+....................       output_a(0b00001010);  //Register write bits definition 
+0071:  BSF    03.5
+0072:  CLRF   05
+0073:  MOVLW  0A
+0074:  BCF    03.5
+0075:  MOVWF  05
+....................       return (input_b());    //The function returns this value 
+0076:  MOVLW  FF
+0077:  BSF    03.5
+0078:  MOVWF  06
+0079:  BCF    03.5
+007A:  MOVF   06,W
+007B:  MOVWF  78
+007C:  GOTO   07D
+....................        
+....................       default:               //null process 
+....................       break; 
+....................    } 
+007D:  BCF    0A.3
+007E:  BCF    0A.4
+007F:  GOTO   0A6 (RETURN)
+.................... } 
+....................  
+.................... void main() 
+0080:  BSF    03.5
+0081:  BSF    1F.0
+0082:  BSF    1F.1
+0083:  BSF    1F.2
+0084:  BCF    1F.3
+0085:  BCF    03.7
+0086:  MOVLW  1F
+0087:  ANDWF  03,F
+.................... { 
+....................    setup_psp(PSP_DISABLED);           //PSP unit is disabled   
+0088:  BCF    09.4
+....................    setup_timer_1(T1_DISABLED);        //T1 unit is disabled 
+0089:  BCF    03.5
+008A:  CLRF   10
+....................    setup_timer_2(T2_DISABLED, 0, 1);  //T2 unit is disabled 
+008B:  MOVLW  00
+008C:  MOVWF  78
+008D:  MOVWF  12
+008E:  MOVLW  00
+008F:  BSF    03.5
+0090:  MOVWF  12
+....................    setup_adc_ports(NO_ANALOGS);       //There is no analog input  
+0091:  BSF    1F.0
+0092:  BSF    1F.1
+0093:  BSF    1F.2
+0094:  BCF    1F.3
+....................    setup_adc(ADC_OFF);                //ADC unit is disabled 
+0095:  BCF    03.5
+0096:  BCF    1F.0
+....................    setup_CCP1(CCP_OFF);               //CCP1 unit is disabled. 
+0097:  MOVLW  F0
+0098:  ANDWF  17,F
+....................    setup_CCP2(CCP_OFF);               //CCP2 unit is disabled. 
+0099:  ANDWF  1D,F
+....................     
+....................    _8255_write('r',0b10001001);       //A port is out, C port is in and B port is out 
+009A:  MOVLW  72
+009B:  MOVWF  21
+009C:  MOVLW  89
+009D:  MOVWF  22
+009E:  CALL   004
+....................    _8255_write('a',0x00);             //A port is out, C port is in and B port is out. 
+009F:  MOVLW  61
+00A0:  MOVWF  21
+00A1:  CLRF   22
+00A2:  CALL   004
+....................  
+....................    while(TRUE) 
+....................    { 
+....................       data = _8255_read('c');        //Reading port C 
+00A3:  MOVLW  63
+00A4:  MOVWF  21
+00A5:  GOTO   03F
+00A6:  MOVF   78,W
+00A7:  MOVWF  20
+....................       _8255_write('a',data);         //The value read from the C port is written to the A port 
+00A8:  MOVLW  61
+00A9:  MOVWF  21
+00AA:  MOVF   20,W
+00AB:  MOVWF  22
+00AC:  CALL   004
+00AD:  GOTO   0A3
+....................    } 
+....................  
+.................... } 
+00AE:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F3A   HS NOWDT NOPUT NOBROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT

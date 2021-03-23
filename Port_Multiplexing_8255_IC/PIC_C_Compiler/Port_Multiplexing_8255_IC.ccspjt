@@ -1,0 +1,23 @@
+[PROJECT]
+Target=Port_Multiplexing_8255_IC.hex
+Processor_Text=PIC16F877
+CCSVerions=5.007
+Compiler=PCM
+CCSVersion=5.007
+[Target Data]
+FileList=Port_Multiplexing_8255_IC.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\;C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\Port_Multiplexing_8255_IC\PIC_C_Compiler\
+[C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\Port_Multiplexing_8255_IC\PIC_C_Compiler\Port_Multiplexing_8255_IC]
+Type=4
+[mru-list]
+1=Port_Multiplexing_8255_IC.c
+[Opened Files]
+1=Port_Multiplexing_8255_IC.c
+2=
+3=
+[Port_Multiplexing_8255_IC.c]
+Type=4
+[Units]
+Count=1
+1=Port_Multiplexing_8255_IC (main)
