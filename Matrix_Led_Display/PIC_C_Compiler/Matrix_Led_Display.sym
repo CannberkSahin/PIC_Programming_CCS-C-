@@ -1,0 +1,74 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004-005 @WRITE_PROGRAM_MEMORY8.P2
+008     PSP_DATA
+015     CCP_1_LOW
+015     CCP_1
+016     CCP_1_HIGH
+01B     CCP_2
+01B     CCP_2_LOW
+01C     CCP_2_HIGH
+020-024 A
+025-029 B
+02A-02E C
+02F-033 D
+034-038 E
+039-03D plus
+03E-042 d_arrow
+043     @TRIS_C
+044-045 send_char_matrix.ch
+046     send_char_matrix.count
+047     send_char_matrix.i
+048     send_char_matrix.j
+049     send_char_matrix.k
+04A     colselect.s
+04A     @delay_ms1.P1
+04A     send_char_matrix.@SCRATCH1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+10D-10E @READ_PROGRAM_MEMORY8.P1
+10D-10E @WRITE_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+000004  colselect
+000020  @goto10550
+000029  send_char_matrix
+00004E  @delay_ms1
+000068  MAIN
+000068  @cinit1
+00006F  @cinit2
+
+Project Directory:
+    C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\Matrix_Led_Display\PIC_C_Compiler\
+
+Project Files:
+    Matrix_Led_Display.c                                    [23-Mar-21 21:16  CRC=634D9F65]
+    Matrix_Led_Display.h                                    [23-Mar-21 20:21  CRC=4F1249B1]
+    ..\..\..\..\..\..\..\Program Files (x86)\PICC\Devices\16F877.h [21-Haz-13 16:04  CRC=A355A189]
+
+Source signature=F90B2C28
+
+Units:
+    Matrix_Led_Display (main)
+
+Compiler Settings:
+    Processor:      PIC16F877
+    Pointer Size:   16
+    ADC Range:      0-65535
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    XREF file:   Matrix_Led_Display.xsym
+    Errors:      Matrix_Led_Display.err
+    Ext Symbols: Matrix_Led_Display.esym
+    INHX8:       Matrix_Led_Display.hex
+    Symbols:     Matrix_Led_Display.sym
+    List:        Matrix_Led_Display.lst
+    Debug/COFF:  Matrix_Led_Display.cof
+    Project:     Matrix_Led_Display.ccspjt
+    Call Tree:   Matrix_Led_Display.tre
+    Statistics:  Matrix_Led_Display.STA

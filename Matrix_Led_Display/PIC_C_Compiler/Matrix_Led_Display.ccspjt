@@ -1,0 +1,23 @@
+[PROJECT]
+Target=Matrix_Led_Display.hex
+Processor_Text=PIC16F877
+CCSVerions=5.007
+Compiler=PCM
+CCSVersion=5.007
+[Target Data]
+FileList=Matrix_Led_Display.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\;C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\Matrix_Led_Display\PIC_C_Compiler\
+[C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\Matrix_Led_Display\PIC_C_Compiler\Matrix_Led_Display]
+Type=4
+[mru-list]
+1=Matrix_Led_Display.c
+[Opened Files]
+1=Matrix_Led_Display.c
+2=
+3=
+[Matrix_Led_Display.c]
+Type=4
+[Units]
+Count=1
+1=Matrix_Led_Display (main)

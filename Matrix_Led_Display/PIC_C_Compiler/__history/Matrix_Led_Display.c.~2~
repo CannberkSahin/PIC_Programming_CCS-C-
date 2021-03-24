@@ -1,0 +1,32 @@
+/******************************************************************************
+*Project Name: PMatrix Led Display
+*Engineer: Canberk SAHIN
+*Project Microcontroller: PIC16F877
+*Version: V1
+*Create Date: 21.03.2021
+*Update Date: 21.03.2021
+*University: Bursa Technical University
+*Revision: - 
+******************************************************************************/
+#include <Matrix_Led_Display.h>
+
+//Character information to be sent to Matrix Led (Arrays)
+int A[]={0x03,0x75,0x76,0x75,0x03};
+int B[]={0x00,0x36,0x36,0x36,0x49};
+int C[]={0x41,0x3E,0x3E,0x3E,0x5D};
+int D[]={0x00,0x3E,0x3E,0x3E,0x41};
+int E[]={0x00,0xB6,0xB6,0xB6,0xBE};
+int plus[]={0x77,0x77,0x41,0x77,0x77};
+int d_arrow[]={0x6B,0x5D,0x00,0x5D,0x6B};
+
+//Column selection function definition
+
+void main()
+{
+
+   while(TRUE)
+   {
+      //TODO: User Code
+   }
+
+}
