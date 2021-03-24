@@ -23,22 +23,22 @@ Page ROM  %  RAM   Vol Diff  Functions:
 ---- --- --- ---   --- ----  ----------
  Inline         1             @delay_ms1
 0     28  12    1   240  3.5  colselect
-0      9   4    0    14  0.8  @goto10550
+0      9   4    0             @goto10550
 0     63  26    7   377  4.8  send_char_matrix
-0    135  56    0   483  2.4  MAIN
+0    135  56    0   494  2.4  MAIN
  Inline         0             @cinit1
 
 Program metrics:
-    Functions               4
+    Functions               3
     Statements              38
     Comments                163
-    Volume (V)              1488
-    Difficulty (D)          11.9
-    Effort to implement (E) 17710
-    Time to implement (T)   16 minutes
+    Volume (V)              1450
+    Difficulty (D)          10.5
+    Effort to implement (E) 15252
+    Time to implement (T)   14 minutes
     Est Delivered Bugs (B)  0
     Cyclomatic Complexity   8
-    Maintainability (MI)    81
+    Maintainability (MI)    52
 
  Segment     Used  Free
 -----------  ----  ----

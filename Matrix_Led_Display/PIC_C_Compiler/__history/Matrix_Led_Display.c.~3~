@@ -1,5 +1,5 @@
 /******************************************************************************
-*Project Name: Matrix Led Display
+*Project Name: PMatrix Led Display
 *Engineer: Canberk SAHIN
 *Project Microcontroller: PIC16F877
 *Version: V1
@@ -69,8 +69,8 @@ void main()
       send_char_matrix(C, 20);       //Printed the character C on the matrix display.
       send_char_matrix(D, 20);       //Printed the character D on the matrix display.
       send_char_matrix(E, 20);       //Printed the character E on the matrix display.
-      send_char_matrix(plus,20);     //Printed the character plus character on the matrix display.
-      send_char_matrix(d_arrow,20);  //Printed the character double arrow character on the matrix display.
+      send_char_matrix(plus 20);     //Printed the character plus character on the matrix display.
+      send_char_matrix(d_arrow 20);  //Printed the character double arrow character on the matrix display.
    }
 
 }

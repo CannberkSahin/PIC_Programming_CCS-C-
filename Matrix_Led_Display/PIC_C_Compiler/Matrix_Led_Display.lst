@@ -1,4 +1,4 @@
-CCS PCM C Compiler, Version 5.007, 61971               23-Mar-21 21:16
+CCS PCM C Compiler, Version 5.007, 61971               24-Mar-21 11:08
 
                Filename:   C:\Users\canbe\OneDrive\Masaüstü\PIC_Programming_CCS(C)\Matrix_Led_Display\PIC_C_Compiler\Matrix_Led_Display.lst
 
@@ -15,7 +15,7 @@ CCS PCM C Compiler, Version 5.007, 61971               23-Mar-21 21:16
 0002:  GOTO   068
 0003:  NOP
 .................... /****************************************************************************** 
-.................... *Project Name: PMatrix Led Display 
+.................... *Project Name: Matrix Led Display 
 .................... *Engineer: Canberk SAHIN 
 .................... *Project Microcontroller: PIC16F877 
 .................... *Version: V1 
@@ -337,14 +337,14 @@ CCS PCM C Compiler, Version 5.007, 61971               23-Mar-21 21:16
 00DE:  MOVLW  14
 00DF:  MOVWF  46
 00E0:  CALL   029
-....................       send_char_matrix(plus 20);     //Printed the character plus character on the matrix display. 
+....................       send_char_matrix(plus,20);     //Printed the character plus character on the matrix display. 
 00E1:  CLRF   45
 00E2:  MOVLW  39
 00E3:  MOVWF  44
 00E4:  MOVLW  14
 00E5:  MOVWF  46
 00E6:  CALL   029
-....................       send_char_matrix(d_arrow 20);  //Printed the character double arrow character on the matrix display. 
+....................       send_char_matrix(d_arrow,20);  //Printed the character double arrow character on the matrix display. 
 00E7:  CLRF   45
 00E8:  MOVLW  3E
 00E9:  MOVWF  44
